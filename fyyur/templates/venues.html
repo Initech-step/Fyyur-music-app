@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %} See all venues here{% endblock %}
+
+
+{% block body %}
+<br>
+<br>
+
+<div class="container">
+
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 text-center">
+                <h2 class="black-text">All Venues</h2>
+            </div>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+                <a class="btn btn-md black-bg text-white fw-bold p-2" href="{{ url_for('search_venue') }}">Search venue</a>
+                <a class="btn btn-md text-dark btn-warning fw-bold p-2 mx-2" href="{{ url_for('add_venue') }}"><b>Add venue</b></a>
+            </div>
+        </div>
+    </header>
+
+
+  <div class="">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    {% if venues == [] %}
+      <p class='lead text-center'>No venues added to database</p>
+    {% else %}
+      
+      {% for state in state_choices %}
+        <div class="alert text-dark" role="alert">
+          <h5 class="black-bg text-warning">{{ state }}</h5>
+        {% for venue in venues %}
+
+          {% if state == venue.state %}
+              <p class="mb-0"><i class="bi bi-house"></i> <b>{{ venue.name }}</b></p>
+              <span style="display: flex; align-items: center; margin-bottom: 0px;">
+                <p><i class="bi bi-geo-alt"></i> {{ venue.state }},</p> 
+                <p>{{ venue.city }}</p>
+              </span>
+              <p class="font-weight-bold mt-0 mb-0">ID: {{ venue.id }}</p> 
+              <a type="button" class="btn btn-warning text-dark btn-sm px-4 fw-bold" href="{{ url_for('view_venue', venue_id=venue.id) }}"> View venue </a>
+              <hr>
+          {% endif %}
+  
+        {% endfor %}
+        </div>
+  
+      {% endfor %}
+    
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+        
+         
+          
+        

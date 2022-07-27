@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}View venue{% endblock %}
+
+
+{% block body %}
+<br>
+<br>
+
+<div class="container">
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 text-center">
+                <a class="h2 black-text" href="#"> Venue</a>
+            </div>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+                <a class="btn btn-md btn-warning text-dark fw-bold p-3" href="">Update venue</a>
+            </div>
+        </div>
+    </header>
+    
+  <div class="row pb-5 mb-4 justify-content-center">
+    <div class="col-lg-5 col-md-5 mb-4 mb-lg-0 mt-3">
+        {% set aim = 'uploads/' + venue.image %}
+        <img src="{{ url_for('static', filename=aim )}}" alt="venue Image here" class="w-100" style="height:auto;">
+    </div>
+    <div class="col-lg-5 col-md-5 mb-4 mb-lg-0 mt-3">
+        <div class="card border-0 rounded">
+            <h5 class="mb-0"><i class="bi bi-house"></i> {{ venue.name }}</h5>
+            <p class=""><b>Id: {{ venue.id }}</b></p>
+
+            <p class="mb-0"><i class="bi bi-music-note-list"></i>
+                {% for genre in genres %}
+                    <i>{{ genre }},</i>
+                {% endfor %}
+            </p>
+            <span><i class="bi bi-geo-fill"></i> {{ venue.state }}, <b>city: </b>{{ venue.city }}</span>
+            <p class="mb-0"><i class="bi bi-geo-alt"></i> {{ venue.address }}</p>
+            <p class="mb-0"><i class="bi bi-facebook"></i> {{ venue.facebook }}</p>
+            <p class="mb-0"><i class="bi bi-telephone-fill"></i> {{ venue.phone }}</p>
+            
+            <h5 class="mb-0">
+                 {% if venue.currently_seeking == "" %}
+                    This venue is not Currently looking for artists
+                {% else %}
+                     <div class="alert alert-success mt-1" role="alert">
+                        <i class="bi bi-chat-right-quote"></i>
+                        <p>{{ venue.currently_seeking }}</p>
+                    </div>
+                {% endif %}
+            </h5>
+
+            <div class="d-grid d-md-flex mb-4 mb-lg-3 mt-3">
+                <a type="button" class="btn black-bg text-white btn-md px-4 me-md-2 fw-bold" href="{{ url_for('update_venue', venue_id=venue.id) }}">Edit Venue</a>
+                <a type="button" class="btn btn-danger text-white btn-md px-4 mx-2" href="{{ url_for('delete_venue', venue_id=venue.id) }}"><i class="bi bi-exclamation-diamond-fill"></i> Delete Venue</a>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6 col-12">
+            <h3 class="text-center bg-warning">Upcoming shows {{ upcoming_shows_count }}</h3>
+            {% for show in upcoming_shows %}
+            <div class="card mb-1">
+              <div class="card-body">
+                <h5 class="card-title mb-0"> {{ show[4] }}</h5>
+                <p class="card-text mb-0">will be performing at</p>
+                <p class="card-text mb-0"> {{ show[1] }}</p>
+                <p class="card-text"><b>{{ show[3] }} </b></p> 
+                <a href="{{ url_for('view_artist', artist_id=show[5]) }}" class="btn btn-warning text-dark">View Artist</a>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-5 col-md-6 col-12">
+            <h3 class="text-center bg-warning">Past shows {{ past_shows_count }}</h3>
+            {% for show in past_shows %}
+            <div class="card mb-1">
+              <div class="card-body">
+                <h5 class="card-title mb-0"> {{ show[4] }}</h5>
+                <p class="card-text mb-0">will be performing at</p>
+                <p class="card-text mb-0"> {{ show[1] }}</p>
+                <p class="card-text"><b>{{ show[3]}} </b></p> 
+                <a href="{{ url_for('view_artist', artist_id=show[5]) }}" class="btn btn-warning text-dark">View artist</a>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+
+{% endblock %}

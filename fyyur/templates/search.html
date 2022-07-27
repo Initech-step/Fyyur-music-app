@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Search for artist{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<div class="row p-2  align-items-center justify-content-center rounded-3">
+    <div class="col-lg-7">
+      <form action="" method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+          {{ form.search_by.label() }}
+          {% if form.search_by.errors %}
+              {{ form.search_by(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+              {% for error in form.search_by.errors %}
+                <span>* {{ error }}</span>
+              {% endfor %}
+              </div>
+          {%else%}
+              {{ form.search_by(class="form-control") }}
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.search.label() }}
+          {% if form.search.errors %}
+              {{ form.search(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+              {% for error in form.search.errors %}
+                <span>* {{ error }}</span>
+              {% endfor %}
+              </div>
+          {%else%}
+              {{ form.search(class="form-control") }}
+          {% endif %}
+        </div>
+
+        <div id="success"></div>
+        <div class="form-group">
+          {{form.submit(class='w-100 text-dark lead btn-warning btn font-weight-bold')}}
+        </div>
+
+    </form>
+
+    <br>
+    <section name='results'>
+        <div class='text-center'>
+          {% if results == [] %}
+            <p class='lead'>No results found</p>
+          {% else %}
+            {% for result in results %}
+            <!--Width 60 height auto-->
+            <h5>Artist name: <span class='lead'>{{ result.name }}</span></h5>
+            <p><b>Artist state/city:</b> {{ result.state }}, {{ result.city }}</p>
+            <a href="{{ url_for('view_artist', artist_id=result.id) }}" class='btn btn-sm btn-warning text-dark'>View Artist</a>
+            <hr>
+            {% endfor %}
+          {% endif %}
+            
+        </div>
+    </section>
+
+
+    </div>
+  </div>
+{% endblock %}

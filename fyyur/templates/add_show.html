@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add a venue
+{% endblock %}
+
+{% block body %}
+<br>
+
+<div class="container my-5">
+  <header class="blog-header py-2">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-4">
+            <h2 class="h2 black-text text-center">Add show</h2>
+        </div>
+    </div>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% endwith %}
+
+    <div class="row p-2  align-items-center justify-content-center rounded-3">
+      <div class="col-lg-7">
+        <form action="" method="POST">
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            {{ form.artist_id.label() }}
+            {% if form.artist_id.errors %}
+                {{ form.artist_id(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.artist_id.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.artist_id(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.venue_id.label() }}
+            {% if form.venue_id.errors %}
+                {{ form.venue_id(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.venue_id.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.venue_id(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.date.label() }}
+            {% if form.date.errors %}
+                {{ form.date(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.date.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.date(class="form-control") }}
+            {% endif %}
+          </div>
+
+
+          <br>
+          <div class="form-group">
+            {{form.submit(class='w-100 text-dark lead btn-warning btn font-weight-bold')}}
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+</div>
+
+{% endblock %}

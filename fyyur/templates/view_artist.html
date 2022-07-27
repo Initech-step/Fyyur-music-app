@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}View artist{% endblock %}
+
+
+{% block body %}
+<br>
+<br>
+
+<div class="container">
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 text-center">
+                <a class="h2 black-text" href="#"> Artist</a>
+            </div>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+                <a class="btn btn-md btn-warning text-dark fw-bold p-3" href="">Update artist</a>
+            </div>
+        </div>
+    </header>
+
+    
+  <div class="row pb-5 mb-2 justify-content-center">
+
+    <!--CARD-->
+    <div class="col-lg-5 col-md-5 mb-4 mb-lg-0 mt-3">
+        {% set aim = 'uploads/' + artist.image %}
+        <img src="{{ url_for('static', filename=aim )}}" alt="Artist Image here" class="w-100" style="height:auto;">
+    </div>
+
+    <div class="col-lg-5 col-md-5 mb-4 mb-lg-0 mt-3">
+        <div class="card border-0 rounded">
+            <h5 class="mb-0"><i class="bi bi-person-fill"></i> {{ artist.name }}</h5>
+            <p class=""><b>ID: {{ artist.id }}</b></p>
+
+            <p class="mb-0"><i class="bi bi-music-note-list"></i>
+                {% for genre in genres %}
+                    <i>{{ genre }},</i>
+                {% endfor %}
+            </p>
+            <span><b><i class="bi bi-geo-alt"></i></b> {{ artist.state }}, <b>city: </b>{{ artist.city }}</span>
+            <p class="mb-0"><i class="bi bi-envelope-fill"></i> {{ artist.email }}</p>
+            <p class="mb-0"><i class="bi bi-facebook"></i> {{ artist.facebook }}</p>
+            <p class="mb-0"><i class="bi bi-telephone-fill"></i> {{ artist.phone }}</p>
+            <p class="mb-0"><i class="bi bi-globe"></i> {{ artist.website }}</p>
+            
+            <h5 class="mb-0">
+                 {% if artist.currently_seeking == "" %}
+                    This artist is not Currently looking for Venues
+                {% else %}
+                    <div class="alert alert-success mt-1" role="alert">
+                        <i class="bi bi-chat-right-quote"></i>
+                        <p>{{ artist.currently_seeking }}</p>
+                    </div>
+                {% endif %}
+            </h5>
+
+            <div class="d-grid d-md-flex mb-4 mb-lg-3 mt-3">
+                <a type="button" class="btn black-bg text-white btn-md px-4 me-md-2 fw-bold" href="{{ url_for('update_artist', artist_id=artist.id) }}">Edit artist</a>
+                <a type="button" class="btn btn-danger text-white btn-md px-4 mx-2" href="{{ url_for('delete_artist', artist_id=artist.id) }}"><i class="bi bi-person-x-fill"></i> Delete artist</a>
+            </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6 col-12">
+            <h3 class="text-center bg-warning">Upcoming shows {{ upcoming_shows_count }}</h3>
+            {% for show in upcoming_shows %}
+            <div class="card mb-1">
+              <div class="card-body">
+                <h5 class="card-title mb-0"> {{ show[4] }}</h5>
+                <p class="card-text mb-0">will be performing at</p>
+                <p class="card-text mb-0"> {{ show[1] }}</p>
+                <p class="card-text"><b>{{ show[3] }} </b></p> 
+                <a href="{{ url_for('view_venue', venue_id=show[0]) }}" class="btn btn-warning text-dark">View venue</a>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-lg-5 col-md-6 col-12">
+            <h3 class="text-center bg-warning">Past shows {{ past_shows_count }}</h3>
+             {% for show in past_shows %}
+            <div class="card mb-1">
+              <div class="card-body">
+                <h5 class="card-title mb-0"> {{ show[4] }}</h5>
+                <p class="card-text mb-0">will be performing at</p>
+                <p class="card-text mb-0"> {{ show[1] }}</p>
+                <p class="card-text"><b>{{ show[3] }} </b></p> 
+                <a href="{{ url_for('view_venue', venue_id=show[0]) }}" class="btn btn-warning text-dark">View venue</a>
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+{% endblock %}
+

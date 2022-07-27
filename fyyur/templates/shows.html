@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} See all shows here{% endblock %}
+
+
+{% block body %}
+<br>
+<br>
+
+<div class="container">
+
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 text-center">
+                <a class="h2 black-text" href="#">All Shows</a>
+            </div>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+                <a class="btn btn-md text-dark btn-warning fw-bold p-2 mx-2" href="{{ url_for('add_show') }}"><b>Add show</b></a>
+            </div>
+        </div>
+    </header>
+
+
+  <div class="row pb-5 mb-4 justify-content-center">
+
+    {% if shows == [] %}
+      <p class='lead text-center'>No shows added to database</p>
+    {% else %}
+
+      {% for show in shows %}
+
+      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 mt-3">
+        <div class="card shadow-sm border-0 rounded">
+          {% set aim = 'static/uploads/' + show.artists.image %}
+          <div class="card-body p-0 text-center">
+            <img src="{{ aim }}" alt="Artist Image" class="w-100 card-img-top">
+            <div class="p-4">
+              <h5 class=""><i class="bi bi-person-fill"></i> {{ show.artists.name }}</h5>
+              <p class='text-warning mb-0'><b> is performing at </b></p>
+              <p class=''><i class="bi bi-house"></i> {{ show.show.name }}</p>
+              <p class=''><i class="bi bi-calendar-event"></i> {{ show.start_time }}</p>
+
+              <a type="button" class="btn btn-warning text-dark btn-md px-4 me-md-2 fw-bold" href="{{ url_for('view_venue', venue_id=show.show.id) }}"> View Venue </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add an Artist
+{% endblock %}
+
+{% block body %}
+<br>
+
+<div class="container my-5">
+  <header class="blog-header py-2">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-4">
+            <a class="h2 black-text text-center" href="#">Add Artists</a>
+        </div>
+    </div>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% endwith %}
+
+    <div class="row p-2  align-items-center justify-content-center rounded-3">
+      <div class="col-lg-7">
+        <form action="" method="POST" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            {{ form.name.label() }}
+            {% if form.name.errors %}
+                {{ form.name(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.name.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.name(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.email.label() }}
+            {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.email(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.website.label() }}
+            {% if form.website.errors %}
+                {{ form.website(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.website.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.website(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.facebook.label() }}
+            {% if form.facebook.errors %}
+                {{ form.facebook(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.facebook.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.facebook(class="form-control") }}
+            {% endif %}
+          </div>
+
+
+          <div class="form-group">
+            {{ form.phone.label() }}
+            {% if form.phone.errors %}
+                {{ form.phone(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.phone.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.phone(class="form-control") }}
+            {% endif %}
+          </div>
+
+
+          <div class="form-group">
+            {{ form.state.label() }}
+            {% if form.state.errors %}
+                {{ form.state(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.state.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.state(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.city.label() }}
+            {% if form.city.errors %}
+                {{ form.city(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.city.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.city(class="form-control") }}
+            {% endif %}
+          </div>
+
+
+          <div class="form-group">
+            {{ form.photo.label()}}
+            {% if form.photo.errors %}
+                {{ form.photo(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.photo.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.photo(class="form-control-file")}}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.genre.label()}}
+            {% if form.genre.errors %}
+                {{ form.genre(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.genre.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.genre(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.currently_seeking.label()}}
+            {% if form.currently_seeking.errors %}
+                {{ form.currently_seeking(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                {% for error in form.currently_seeking.errors %}
+                  <span>* {{ error }}</span>
+                {% endfor %}
+                </div>
+            {%else%}
+                {{ form.currently_seeking(class="form-control")}}
+            {% endif %}
+          </div>
+
+          <br>
+          <div id="success"></div>
+          <div class="form-group">
+            {{form.submit(class='w-100 text-dark lead btn-warning btn font-weight-bold')}}
+          </div>
+      </form>
+
+
+      </div>
+    </div>
+</div>
+
+{% endblock %}

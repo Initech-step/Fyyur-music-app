@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='bootstrap/boot/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='mystyles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <div class="container-fluid">
+        
+        <a class="navbar-brand font-weight-bold text-warning" href="#">FYYUR</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+            <a class="nav-link lead font-weight-bold" aria-current="page" href="{{ url_for('index') }}"><i class="bi bi-house-fill"></i> Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link lead font-weight-bold" href="{{ url_for('venues') }}"><i class="bi bi-geo-alt-fill"></i> Venues</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link lead font-weight-bold" href="{{ url_for('artists') }}">
+                <i class="bi bi-person-circle"></i> Artists
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link lead font-weight-bold" href="{{ url_for('shows') }}"><i class="bi bi-music-player-fill"></i> Shows</a>
+            </li> 
+        </ul>
+        </div>
+    </div>
+    </nav>
+
+    {% block body %}
+    
+    {% endblock body %}
+
+    <script src="{{ url_for('static', filename='jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='/bootstrap/js/bootstrap.min.js') }}"></script>  
+  </body>
+</html>
+

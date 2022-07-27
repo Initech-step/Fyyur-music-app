@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %} See all artists here{% endblock %}
+
+
+{% block body %}
+<br>
+<br>
+
+<div class="container">
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 text-center">
+                <a class="h2 black-text" href="#">All Artists</a>
+            </div>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+                <a class="btn btn-md black-bg text-white fw-bold p-2" href="{{ url_for('search_page') }}"><i class="bi bi-search"></i> Search artist</a>
+                <a class="btn btn-md text-dark btn-warning fw-bold p-2 mx-2" href="{{ url_for('add_artist') }}"><i class="bi bi-person-plus"></i> <b>Add artist</b></a>
+            </div>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+  <div class="row pb-5 mb-4 justify-content-center">
+    
+    {% if artists == [] %}
+      <p class='lead text-center'>No Artists added to database</p>
+    {% else %}
+
+      {% for artist in artists %}
+      <!--CARD-->
+      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 mt-3">
+        <div class="card shadow-sm border-0 rounded">
+          {% set aim = 'static/uploads/' + artist.image %}
+          <div class="card-body p-0">
+            <img src="{{ aim }}" alt="Artist Image" class="w-100 card-img-top">
+            <div class="p-4">
+              <h5 class="mb-0"><i class="bi bi-person-fill"></i> {{ artist.name }}</h5>
+              <p class=" mb-0"><b>ID:</b> {{ artist.id }}</p>
+              <p class=""><i class="bi bi-music-note-list"></i> 
+                <i>{% for gen in artist.genre %}
+                  {{ gen }}
+                {% endfor %}
+                </i>
+              </p>
+              <a type="button" class="btn btn-warning text-dark btn-md px-4 me-md-2 fw-bold" href="{{ url_for('view_artist', artist_id=artist.id) }}"> View Artist </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    {% endif %}
+  
+
+  </div>
+</div>
+{% endblock %}
